@@ -14,29 +14,29 @@ const state = {
 
 const snake = {
   body: [
-    { x: 300, y: 400 },
-    { x: 320, y: 400 },
-    { x: 340, y: 400 },
-    { x: 360, y: 400 },
+    { x: 300, y: 300 },
+    { x: 315, y: 300 },
+    { x: 330, y: 300 },
+    { x: 345, y: 300 },
   ],
 
-  speed: { x: -20, y: 0 },
+  speed: { x: -15, y: 0 },
 
   draw: function () {
     for (let i = 0; i <= this.body.length - 1; i++) {
       c.fillStyle = "#696969";
       c.strokeStyle = "black";
-      c.fillRect(this.body[i].x, this.body[i].y, 20, 20);
-      c.strokeRect(this.body[i].x, this.body[i].y, 20, 20);
+      c.fillRect(this.body[i].x, this.body[i].y, 15, 15);
+      c.strokeRect(this.body[i].x, this.body[i].y, 15, 15);
     }
   },
 
   update: function () {
     if (
       this.body[0].x >= 0 &&
-      this.body[0].x <= 580 &&
+      this.body[0].x <= 435 &&
       this.body[0].y >= 0 &&
-      this.body[0].y <= 580
+      this.body[0].y <= 435
     ) {
       for (let i = this.body.length - 1; i >= 1; i--) {
         this.body[i].x = this.body[i - 1].x;
@@ -45,34 +45,32 @@ const snake = {
       this.body[0].x += this.speed.x;
       this.body[0].y += this.speed.y;
     }
-
-    
   },
 
   move: function (x) {
     switch (x) {
       case "a":
-        if (this.speed.x != 20) {
-          this.speed.x = -20;
+        if (this.speed.x != 15) {
+          this.speed.x = -15;
           this.speed.y = 0;
         }
         break;
       case "d":
-        if (this.speed.x != -20) {
-          this.speed.x = 20;
+        if (this.speed.x != -15) {
+          this.speed.x = 15;
           this.speed.y = 0;
         }
         break;
       case "w":
-        if (this.speed.y != 20) {
+        if (this.speed.y != 15) {
           this.speed.x = 0;
-          this.speed.y = -20;
+          this.speed.y = -15;
         }
         break;
       case "s":
-        if (this.speed.y != -20) {
+        if (this.speed.y != -15) {
           this.speed.x = 0;
-          this.speed.y = 20;
+          this.speed.y = 15;
         }
         break;
     }
@@ -103,9 +101,9 @@ const snake = {
     if (
       flag == 1 ||
       this.body[0].x < 0 ||
-      this.body[0].x > 580 ||
+      this.body[0].x > 435 ||
       this.body[0].y < 0 ||
-      this.body[0].y > 580
+      this.body[0].y > 435
     ) {
       return true;
     } else {
@@ -115,19 +113,19 @@ const snake = {
 };
 
 const food = {
-  x: 240,
-  y: 240,
+  x: 150,
+  y: 150,
 
   draw: function () {
     c.fillStyle = "red";
     c.strokeStyle = "black";
-    c.fillRect(this.x, this.y, 20, 20);
-    c.strokeRect(this.x, this.y, 20, 20);
+    c.fillRect(this.x, this.y, 15, 15);
+    c.strokeRect(this.x, this.y, 15, 15);
   },
 
   update: function () {
-    this.x = (Math.floor(Math.random() * 29 - 0.5) + 1) * 20;
-    this.y = (Math.floor(Math.random() * 29 - 0.5) + 1) * 20;
+    this.x = (Math.floor(Math.random() * 29 - 0.5) + 1) * 15;
+    this.y = (Math.floor(Math.random() * 29 - 0.5) + 1) * 15;
   },
 };
 
@@ -146,7 +144,7 @@ function loop() {
 function update() {
   if (!snake.isDead()) {
     c.fillStyle = "#9ed670";
-    c.fillRect(0, 0, 600, 600);
+    c.fillRect(0, 0, 450, 450);
     snake.update();
     snake.draw();
     console.log(snake.isEating(food.x, food.y));
@@ -175,12 +173,12 @@ document.addEventListener("keypress", function (e) {
         gameSpeed = 9;
         speedIncrementor = 50;
         snake.body = [
-          { x: 300, y: 400 },
-          { x: 320, y: 400 },
-          { x: 340, y: 400 },
-          { x: 360, y: 400 },
+          { x: 300, y: 300 },
+          { x: 315, y: 300 },
+          { x: 330, y: 300 },
+          { x: 345, y: 300 },
         ];
-        snake.speed = { x: -20, y: 0 };
+        snake.speed = { x: -15, y: 0 };
         food.update();
         score = 0;
         frames = 0;
